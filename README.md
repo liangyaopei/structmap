@@ -1,4 +1,4 @@
-[中文版说明](README_zh.md.go)
+[中文版说明](README_zh.md)
 
 This repo provides a function convert a struct in Golang to a map(unmarshal a struct to a map).It supports
 1. use tag to define the name of a filed in struct when converted in map. If no tag is specified, it will the name of field as key.
