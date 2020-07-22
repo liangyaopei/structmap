@@ -1,4 +1,5 @@
-[English Version](./README.md)
+[English Version](README.md)
+
 这个仓库提供将Golang的结构体转化为`map`的函数。它支持:
 1. 使用`tag`去定义结构体中的域(field)的名字。如果没有指定，就使用结构体的域的名字。
 2. 域(field)可以自定义自己的转化成map的方法。这个自定义的方法要有`(string,interface{})`作为输出，其中`string`作为map的键(key)，`interface`作为map的值。
