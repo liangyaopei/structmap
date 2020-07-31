@@ -1,3 +1,6 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/liangyaopei/structmap)](https://goreportcard.com/report/github.com/liangyaopei/structmap)
+[![GoDoc](https://godoc.org/github.com/liangyaopei/structmap?status.svg)](http://godoc.org/github.com/liangyaopei/structmap)
+
 [中文版说明](README_zh.md)
 
 This repo provides a function convert a struct in Golang to a map(unmarshal a struct to a map).It supports

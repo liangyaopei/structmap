@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/liangyaopei/struct_to_map"
+	"github.com/liangyaopei/structmap"
 )
 
 const timeLayout = "2006-01-02 15:04:05"
@@ -115,7 +115,7 @@ func TestStructToMap(t *testing.T) {
 	user := newUser()
 	tag := "map"
 	methodName := "StructToMap"
-	res, err := struct_to_map.StructToMap(&user, tag, methodName)
+	res, err := structmap.StructToMap(&user, tag, methodName)
 	if err != nil {
 		t.Errorf("struct to map:%s", err.Error())
 		return
@@ -157,6 +157,6 @@ func BenchmarkStructToMapByToMap(b *testing.B) {
 	methodName := ""
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		struct_to_map.StructToMap(&user, tag, methodName)
+		structmap.StructToMap(&user, tag, methodName)
 	}
 }

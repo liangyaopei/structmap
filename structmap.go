@@ -1,4 +1,4 @@
-package struct_to_map
+package structmap
 
 import (
 	"fmt"
