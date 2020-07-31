@@ -43,7 +43,7 @@ func (p Profile) StructToMap() (key string, value interface{}) {
 ```
 使用
 ```go
-res, err := struct_to_map.StructToMap(&user, tag, methodName)
+res, err := structmap.StructToMap(&user, tag, methodName)
 ```
 转化为
 ```go
