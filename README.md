@@ -34,7 +34,7 @@ type GithubPage struct {
 }
 
 type StructNoDive struct {
-	NoDive int
+	NoDive int `map:"no_dive_int"`
 }
 
 type Profile struct {
@@ -55,7 +55,7 @@ can be converted to be
 ```go
 map[string]interface{}{
 	"name":    "user",
-	"no_dive": StructNoDive{NoDive: 1},
+	"no_dive":  map[string]int{"no_dive_int": 1},
     // dive struct field
 	"url":     "https://github.com/liangyaopei",
 	"star":    1,
