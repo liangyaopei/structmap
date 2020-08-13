@@ -2,7 +2,6 @@ package struct_to_map_test
 
 import (
 	"encoding/json"
-	"reflect"
 	"strconv"
 	"strings"
 	"testing"
@@ -38,20 +37,6 @@ func (a MySlice) StructToMap() (string, interface{}) {
 	return key, b.String()
 }
 
-func TestCallMethod(t *testing.T) {
-	arr := MySlice{1, 2, 3}
-	v := reflect.ValueOf(&arr)
-	typ := v.Type()
-	t.Logf("type:%v,value:%v", v.Type(), v)
-	methodName := "StructToMap"
-	method, ok := typ.MethodByName(methodName)
-	t.Logf("method:%v,ok:%v", method, ok)
-	methodRes := v.MethodByName(methodName).Call([]reflect.Value{})
-	key := methodRes[0].String()
-	resValue := methodRes[1].String()
-	t.Logf("key:%s,value:%v", key, resValue)
-}
-
 // alias type
 type Gender int
 
@@ -67,19 +52,20 @@ type GithubPage struct {
 }
 
 type StructNoDive struct {
-	NoDive int
+	NoDive int `map:"no_dive"`
 }
 
 // User is used for demonstration
 type User struct {
-	Name      string       `map:"name,omitempty"`        // string
-	Email     *string      `map:"email_ptr,omitempty"`   // pointer
-	MyGender  Gender       `map:"gender,omitempty"`      // type alias
-	Github    GithubPage   `map:"github,dive,omitempty"` // struct dive
-	NoDive    StructNoDive `map:"no_dive,omitempty"`     // no dive struct
-	MyProfile Profile      `map:"my_profile,omitempty"`  // struct implements its own method
-	Arr       []int        `map:"arr,omitempty"`         // normal slice
-	MyArr     MySlice      `map:"my_arr,omitempty"`      // slice implements its own method
+	Name        string       `map:"name,omitempty"`        // string
+	Email       *string      `map:"email_ptr,omitempty"`   // pointer
+	MyGender    Gender       `map:"gender,omitempty"`      // type alias
+	Github      GithubPage   `map:"github,dive,omitempty"` // struct dive
+	NoDive      StructNoDive `map:"no_dive,omitempty"`     // no dive struct
+	MyProfile   Profile      `map:"my_profile,omitempty"`  // struct implements its own method
+	Arr         []int        `map:"arr,omitempty"`         // normal slice
+	MyArr       MySlice      `map:"my_arr,omitempty"`      // slice implements its own method
+	IgnoreFiled string       `map:"-"`
 }
 
 func newUser() User {
@@ -100,14 +86,15 @@ func newUser() User {
 	arr := []int{1, 2, 3}
 	myArr := MySlice{11, 12, 13}
 	return User{
-		Name:      name,
-		Email:     &email,
-		MyGender:  myGender,
-		Github:    MyGithub,
-		NoDive:    NoDive,
-		MyProfile: profile,
-		Arr:       arr,
-		MyArr:     myArr,
+		Name:        name,
+		Email:       &email,
+		MyGender:    myGender,
+		Github:      MyGithub,
+		NoDive:      NoDive,
+		MyProfile:   profile,
+		Arr:         arr,
+		MyArr:       myArr,
+		IgnoreFiled: "ignore",
 	}
 }
 

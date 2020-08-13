@@ -73,26 +73,31 @@ func StructToMap(s interface{}, tag string, methodName string) (res map[string]i
 		// get kind
 		switch fieldValue.Kind() {
 		case reflect.Slice, reflect.Array:
-			_, ok := fieldValue.Type().MethodByName(methodName)
-			if ok {
-				key, value, err := callFunc(fieldValue, methodName)
-				if err != nil {
-					return nil, err
+			if methodName != "" {
+				_, ok := fieldValue.Type().MethodByName(methodName)
+				if ok {
+					key, value, err := callFunc(fieldValue, methodName)
+					if err != nil {
+						return nil, err
+					}
+					res[key] = value
+					continue
 				}
-				res[key] = value
-				continue
 			}
 			res[tagVal] = fieldValue
 		case reflect.Struct:
-			_, ok := fieldValue.Type().MethodByName(methodName)
-			if ok {
-				key, value, err := callFunc(fieldValue, methodName)
-				if err != nil {
-					return nil, err
+			if methodName != "" {
+				_, ok := fieldValue.Type().MethodByName(methodName)
+				if ok {
+					key, value, err := callFunc(fieldValue, methodName)
+					if err != nil {
+						return nil, err
+					}
+					res[key] = value
+					continue
 				}
-				res[key] = value
-				continue
 			}
+
 			// recursive
 			deepRes, deepErr := StructToMap(fieldValue.Interface(), tag, methodName)
 			if deepErr != nil {
@@ -136,14 +141,15 @@ func readTag(f reflect.StructField, tag string) (string, int) {
 	fieldTag := ""
 	flag := 0
 
-	// no tag, use field name
+	// no tag, skip this field
 	if !ok {
-		return f.Name, flag
+		flag |= flagIgnore
+		return "", flag
 	}
 	opts := strings.Split(val, ",")
 
 	fieldTag = opts[0]
-	for i := 1; i < len(opts); i++ {
+	for i := 0; i < len(opts); i++ {
 		switch opts[i] {
 		case OptIgnore:
 			flag |= flagIgnore
