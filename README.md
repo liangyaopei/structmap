@@ -8,7 +8,7 @@ This repo provides a function convert a struct in Golang to a map(unmarshal a st
 2. a filed in struct can customize its to map method.
 To note that the customized method should have `(string,interface{})` as output, with the `string` as key in map and `interface{}` as value in map.
 
-Also, it skips unexported filed and nil pointer.
+Also, it skips unexported filed , nil pointer and field without tag.
 
 
 ## Tags
