@@ -57,14 +57,14 @@ type StructNoDive struct {
 
 // User is used for demonstration
 type User struct {
-	Name        string       `map:"name,omitempty"`        // string
-	Email       *string      `map:"email_ptr,omitempty"`   // pointer
-	MyGender    Gender       `map:"gender,omitempty"`      // type alias
-	Github      GithubPage   `map:"github,dive,omitempty"` // struct dive
-	NoDive      StructNoDive `map:"no_dive,omitempty"`     // no dive struct
-	MyProfile   Profile      `map:"my_profile,omitempty"`  // struct implements its own method
-	Arr         []int        `map:"arr,omitempty"`         // normal slice
-	MyArr       MySlice      `map:"my_arr,omitempty"`      // slice implements its own method
+	Name        string       `map:"name,omitempty,wildcard"` // string
+	Email       *string      `map:"email_ptr,omitempty"`     // pointer
+	MyGender    Gender       `map:"gender,omitempty"`        // type alias
+	Github      GithubPage   `map:"github,dive,omitempty"`   // struct dive
+	NoDive      StructNoDive `map:"no_dive,omitempty"`       // no dive struct
+	MyProfile   Profile      `map:"my_profile,omitempty"`    // struct implements its own method
+	Arr         []int        `map:"arr,omitempty"`           // normal slice
+	MyArr       MySlice      `map:"my_arr,omitempty"`        // slice implements its own method
 	IgnoreFiled string       `map:"-"`
 }
 

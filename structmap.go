@@ -14,12 +14,14 @@ const (
 	OptIgnore    = "-"
 	OptOmitempty = "omitempty"
 	OptDive      = "dive"
+	OptWildcard  = "wildcard"
 )
 
 const (
 	flagIgnore = 1 << iota
 	flagOmiEmpty
 	flagDive
+	flagWildcard
 )
 
 // StructToMap convert a golang sturct to a map
@@ -121,7 +123,11 @@ func StructToMap(s interface{}, tag string, methodName string) (res map[string]i
 		case reflect.Float32, reflect.Float64:
 			res[tagVal] = fieldValue.Float()
 		case reflect.String:
-			res[tagVal] = fieldValue.String()
+			if flag&flagWildcard != 0 {
+				res[tagVal] = "%" + fieldValue.String() + "%"
+			} else {
+				res[tagVal] = fieldValue.String()
+			}
 		case reflect.Bool:
 			res[tagVal] = fieldValue.Bool()
 		case reflect.Complex64, reflect.Complex128:
@@ -157,6 +163,8 @@ func readTag(f reflect.StructField, tag string) (string, int) {
 			flag |= flagOmiEmpty
 		case OptDive:
 			flag |= flagDive
+		case OptWildcard:
+			flag |= flagWildcard
 		}
 	}
 
